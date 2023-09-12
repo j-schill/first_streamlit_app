@@ -10,8 +10,10 @@ sl.text('Kale, Spinach & Rocket Smoothie')
 sl.text('Hard-Boiled Free-Range Egg')
 
 
-st.text("Here's our first attempt at using data to create a table:")
-st.table(pd.DataFrame({
+st.text('Here's our first attempt at using data to create a table:')
+st.table(
+    pd.DataFrame({
     'first column': [1, 2, 3, 4],
     'second column': [10, 20, 30, 40]
-}))
+})
+)
