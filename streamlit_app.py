@@ -1,3 +1,9 @@
-import streamlit
+import streamlit as sl
 
-streamlit.title('My Parents New Healthy Dinner')
+sl.title('My Parents New Healthy Dinner')
+
+sl.header('Breakfast Menu')
+
+sl.text('Omega 3 & Blueberry Oatmeal')
+sl.text('Kale, Spinach & Rocket Smoothie')
+sl.text('Hard-Boiled Free-Range Egg')
