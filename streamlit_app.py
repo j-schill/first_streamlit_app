@@ -1,6 +1,12 @@
+#import modules
 import streamlit as sl
 import pandas as pd
+import requests
+import snowflake.connector
+from urllib.error import URLError
 
+
+#introduction
 sl.title('My Parents New Healthy Dinner')
 
 sl.header('Breakfast Menu')
@@ -11,9 +17,9 @@ sl.text('🥑🍞 Avocado Toast')
 
 sl.header('🍌🥭 Build Your Own Fruit Smoothie 🥝🍇')
 
+#read data from stage
 my_fruit_list = pd.read_csv("https://uni-lab-files.s3.us-west-2.amazonaws.com/dabw/fruit_macros.txt")
 my_fruit_list = my_fruit_list.set_index('Fruit')
-
 
 # Let's put a pick list here so they can pick the fruit they want to include 
 fruits_selected = sl.multiselect("Pick some fruits:", list(my_fruit_list.index), ['Avocado', 'Strawberries'])
@@ -25,9 +31,7 @@ sl.dataframe(fruits_to_show)
 
 sl.header("Fruityvice Fruit Advice!")
 
-import requests
-
-
+#import requests
 fruit_choice = sl.text_input('What fruit would you like information about?','Kiwi')
 sl.write('The user entered ', fruit_choice)
 fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_choice)
@@ -36,9 +40,10 @@ fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
 # write your own comment - what does this do?
 sl.dataframe(fruityvice_normalized)
 
+#don't run anything past here
+sl.stop()
 
-import snowflake.connector
-
+#import snowflake.connector
 my_cnx = snowflake.connector.connect(**sl.secrets["snowflake"])
 my_cur = my_cnx.cursor()
 my_cur.execute("select * from fruit_load_list")
