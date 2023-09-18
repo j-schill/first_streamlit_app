@@ -46,7 +46,7 @@ my_data_rows = my_cur.fetchall()
 sl.header("The fruit load list contains:")
 sl.dataframe(my_data_rows)
 
-fruit_choice = sl.text_input('What fruit would you like to add?','fruit')
-sl.write('thanks for adding ', fruit_choice)
-
+add_my_fruit = sl.text_input('What fruit would you like to add?','fruit')
+sl.write('Thanks for adding ', add_my_fruit)
+my_cur.execute("intert into fruit_load_list values ('from streamlit')")
 
