@@ -28,17 +28,19 @@ fruits_to_show = my_fruit_list.loc[fruits_selected]
 
 # Display the table on the page.
 sl.dataframe(fruits_to_show)
-
 sl.header("Fruityvice Fruit Advice!")
 
-#import requests
-fruit_choice = sl.text_input('What fruit would you like information about?','Kiwi')
-sl.write('The user entered ', fruit_choice)
-fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_choice)
-# write your own comment -what does the next line do? 
-fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
-# write your own comment - what does this do?
-sl.dataframe(fruityvice_normalized)
+
+try: 
+  fruit_choice = sl.text_input('What fruit would you like information about?')
+  if not fruit_choice:
+    sl.error("Please select a fruit to get information.")
+  else:
+    fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_choice)
+    fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
+    sl.dataframe(fruityvice_normalized)
+except URLError as e:
+  sl.error()
 
 #don't run anything past here
 sl.stop()
