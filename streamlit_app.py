@@ -49,8 +49,8 @@ try:
 except URLError as e:
   sl.error()
 
-#don't run anything past here
-sl.stop()
+##don't run anything past here
+#sl.stop()
 
 #import snowflake.connector
 sl.header("The fruit load list contains:")
